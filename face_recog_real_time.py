@@ -40,7 +40,8 @@ while True:
 
     for encoding in encodings:
         matches = face_recognition.compare_faces(data['encodings'], encoding)
-        name = 'Unknown'
+        name = 'Intruder'
+        distance = face_recognition.face_distance(data['encodings'], encoding)
 
         if True in matches:
             matched_indexes = [i for (i, b) in enumerate(matches) if b]
@@ -52,17 +53,17 @@ while True:
 
             name = max(counts, key=counts.get)
 
-        names.append(name)
+        names.append(f'{name} ({round(min(distance), 2)})')
 
     for ((top, right, bottom, left), name) in zip(boxes, names):
-        cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 2)
+        color = (0, 255, 0) if name != 'Intruder' and min(distance) < 0.6 else (0, 0, 255)
+
+        cv2.rectangle(frame, (left, top), (right, bottom), color, 2)
         y = top - 15 if top - 15 > 15 else top + 15
-        cv2.putText(frame, name, (left, y), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+        cv2.putText(frame, name, (left, y), cv2.FONT_HERSHEY_SIMPLEX, 1, color, 2)
 
     cv2.imshow('Frame', frame)
-    key = cv2.waitKey(1) & 0xFF
-
-    if key == ord('q'):
+    if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
     fps.update()

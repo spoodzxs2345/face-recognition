@@ -1,6 +1,8 @@
 import pickle
 import face_recognition
 import cv2
+import numpy as np
+import math
 
 # load encodings from pickle file
 try:
@@ -11,7 +13,7 @@ except FileNotFoundError:
     exit()
 
 #test an image
-image = cv2.imread('C:/Users/Delsie/Desktop/projects/face_recognition/data/Charles Dela Cruz/423619399_1468004504066590_3351359486075139957_n.jpg')
+image = cv2.imread('C:/Users/Delsie/Desktop/projects/face_recognition/data/Stephanie Canilang/423455084_1897045297379909_2368137213076115610_n.jpg')
 rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
 boxes = face_recognition.face_locations(rgb, model='hog')
@@ -23,6 +25,7 @@ names = []
 for encoding in encodings:
     matches = face_recognition.compare_faces(data['encodings'], encoding)
     name = 'Unknown'
+    distance = face_recognition.face_distance(data['encodings'], encoding)
 
     if True in matches:
         matched_indexes = [i for (i, b) in enumerate(matches) if b]
@@ -34,13 +37,13 @@ for encoding in encodings:
         
         name = max(counts, key=counts.get) # ignore the error
     
-    names.append(name)
+    names.append(f'{name} ({round(min(distance), 2)})')
 
 # draw the box and the name of the person
     for ((top, right, bottom, left), name) in zip(boxes, names):
         cv2.rectangle(image, (left, top), (right, bottom), (0, 255, 0), 2)
         y = top - 15 if top - 15 > 15 else top + 15
-        cv2.putText(image, name, (left, y), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+        cv2.putText(image, name, (left, y), cv2.FONT_HERSHEY_SIMPLEX, 0.50, (0, 255, 0), 2)
 
 #adjust the size of the screen and display the image
 cv2.namedWindow('Image', cv2.WINDOW_NORMAL)
