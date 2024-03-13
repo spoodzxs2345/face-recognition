@@ -8,9 +8,9 @@ import time
 
 #load data and haar-cascade detector
 try:
-    with open('C:/Users/Delsie/Desktop/projects/face_recognition/encodings', 'rb') as f:
+    with open('C:/Users/Delsie/Desktop/projects/face_recognition_v1/encodings', 'rb') as f:
         data = pickle.load(f)
-    detector = cv2.CascadeClassifier('C:/Users/Delsie/Desktop/projects/face_recognition/haarcascade_frontalface_default.xml')
+    detector = cv2.CascadeClassifier('C:/Users/Delsie/Desktop/projects/face_recognition_v1/haarcascade_frontalface_default.xml')
 except FileNotFoundError:
     print('File not found')
     exit()
@@ -41,7 +41,6 @@ while True:
     for encoding in encodings:
         matches = face_recognition.compare_faces(data['encodings'], encoding)
         name = 'Intruder'
-        distance = face_recognition.face_distance(data['encodings'], encoding)
 
         if True in matches:
             matched_indexes = [i for (i, b) in enumerate(matches) if b]
@@ -53,7 +52,7 @@ while True:
 
             name = max(counts, key=counts.get)
 
-        names.append(f'{name} ({round(min(distance), 2)})')
+        names.append(name)
 
     for ((top, right, bottom, left), name) in zip(boxes, names):
         color = (0, 255, 0) if name != 'Intruder' and min(distance) < 0.6 else (0, 0, 255)
