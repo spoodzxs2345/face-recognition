@@ -7,7 +7,7 @@
 
 For installation and setup of the face recognition program in Raspberry Pi, you will need to install the dependencies included in [requirements_main.txt](requirements_main.txt) and [requirements_add.txt](requirements_add.txt). The `requirements_main.txt` has two main dependencies to install (`dlib` and `face_recognition`) for the program to work. Follow this [tutorial](https://smartbuilds.io/installing-face-recognition-library-on-raspberry-pi-4/) for installation and setup.
 
-## Current Issues found (will work to resolve them)
+## Current issues found (will work to resolve them)
 - Low FPS
 - Cannot detect people with face mask on
 
