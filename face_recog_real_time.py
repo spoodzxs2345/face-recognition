@@ -55,7 +55,7 @@ while True:
         names.append(name)
 
     for ((top, right, bottom, left), name) in zip(boxes, names):
-        color = (0, 255, 0) if name != 'Intruder' and min(distance) < 0.6 else (0, 0, 255)
+        color = (0, 255, 0) if name != 'Intruder' else (0, 0, 255)
 
         cv2.rectangle(frame, (left, top), (right, bottom), color, 2)
         y = top - 15 if top - 15 > 15 else top + 15
