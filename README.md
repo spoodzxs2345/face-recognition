@@ -1,7 +1,15 @@
 # Face Recognition Project
 
-## Dependencies
-Download and install dependencies in the [requirements](requirements.txt) using `pip install -r requirements.txt`. You also need to install `dlib` in order to run the program. To setup `dlib` in Raspberry Pi, follow this [tutorial](https://gist.github.com/chirag773/b4c94b5bb4b2e7fcac0d21680c5d4492).
+## Installation and setup (Raspberry Pi)
+
+> [!IMPORTANT]
+> Be sure that `dlib` and `face_recognition` were succesfully installed before installing the dependencies included in `requirements_add.txt`.
+
+For installation and setup of the face recognition program in Raspberry Pi, you will need to install the dependencies included in [requirements_main.txt](requirements_main.txt) and [requirements_add.txt](requirements_add.txt). The `requirements_main.txt` has two main dependencies to install (`dlib` and `face_recognition`) for the program to work. Follow this [tutorial](https://smartbuilds.io/installing-face-recognition-library-on-raspberry-pi-4/) for installation and setup.
+
+## Current issues found (will work to resolve them)
+- Low FPS
+- Cannot detect people with face mask on
 
 ## References
 - [Face Recognition using OpenCV](https://pyimagesearch.com/2018/06/18/face-recognition-with-opencv-python-and-deep-learning/)
