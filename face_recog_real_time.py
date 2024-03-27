@@ -31,7 +31,13 @@ while True:
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
-    rects = detector.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30), flags=cv2.CASCADE_SCALE_IMAGE)
+    rects = detector.detectMultiScale(
+        gray, 
+        scaleFactor=1.1, 
+        minNeighbors=5, 
+        minSize=(30, 30), 
+        flags=cv2.CASCADE_SCALE_IMAGE
+        )
 
     boxes = [(y, x + w, y + h, x) for (x, y, w, h) in rects]
 
